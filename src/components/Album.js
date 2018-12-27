@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import albumdata from './../data/album';
+import PlayerBar from './PlayerBar'
 
 class Album extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Album extends Component {
 
     this.state = {
       album: album,
-      currentSong: album.songs[-1],
+      currentSong: album.songs[0],
       isPlaying: false,
       hover: false,
     };
@@ -30,11 +31,7 @@ class Album extends Component {
     this.setState({isPlaying: false});
   }
 
-  playButton(song) {
-    this.setState({hover: song});
-  }
-
-  pauseButton(song) {
+  setHover(song) {
     this.setState({hover: song});
   }
 
@@ -47,13 +44,23 @@ class Album extends Component {
     const isSameSong = this.state.currentSong === song;
     if (isSameSong && this.state.isPlaying) {
       this.pause();
-      this.playButton(song);
+      this.setHover(song);
     }
     else {
       if (!isSameSong) { this.setSong(song); }
       this.play();
-      this.pauseButton(song);
+      this.setHover(song);
     }
+  }
+
+  handlePrevClick() {
+    const currentIndex = this.state.album.songs.findIndex(
+      song => this.state.currentSong === song
+    );
+    const newIndex = Math.max(0, currentIndex-1);
+    const newSong = this.state.album.songs[newIndex];
+    this.setSong(newSong);
+    this.play();
   }
 
   mouseOver(song) {
@@ -88,14 +95,15 @@ class Album extends Component {
                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseEnter={() => this.mouseOver(song)} onMouseLeave={() => this.mouseOut(song)}>
                   <td className="songNumber" >
                     {(() => {
-                      if (this.state.hover == song && this.state.hover != this.state.currentSong) {
+                      if ((this.state.hover === song)
+                      || (!this.state.isPlaying && (this.state.currentSong === song))) {
                         return (
                           <span>
                             <ion-icon name="play"></ion-icon>
                           </span>
                         )
                       }
-                      else if (this.state.isPlaying && this.state.currentSong == song) {
+                      else if (this.state.isPlaying && (this.state.currentSong === song)) {
                         return(
                           <span>
                             <ion-icon name="pause"></ion-icon>
@@ -104,7 +112,7 @@ class Album extends Component {
                       }
                       else {
                         return (index + 1)
-                      };
+                      }
                     }) ()}
                   </td>
                   <td>{song.title}</td>
@@ -114,6 +122,12 @@ class Album extends Component {
             }
           </tbody>
         </table>
+        <PlayerBar
+          isPlaying = {this.state.isPlaying}
+          currentSong = {this.state.currentSong}
+          handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+          handlePrevClick={() => this.handlePrevClick()}
+        />
       </section>
     )
   }
