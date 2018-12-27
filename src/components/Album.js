@@ -11,7 +11,7 @@ class Album extends Component {
 
     this.state = {
       album: album,
-      currentSong: album.songs[0],
+      currentSong: album.songs[-1],
       isPlaying: false,
       hover: false,
     };
@@ -85,22 +85,26 @@ class Album extends Component {
           <tbody>
             {
               this.state.album.songs.map( (song, index) =>
-                <tr className="song" key={index} onClick={() => this.handleSongClick(song)}>
-                  <td className="songNumber" onMouseEnter={() => this.mouseOver(song)} onMouseLeave={() => this.mouseOut(song)}>
+                <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseEnter={() => this.mouseOver(song)} onMouseLeave={() => this.mouseOut(song)}>
+                  <td className="songNumber" >
                     {(() => {
-                      if (this.state.hover == song && !this.state.isPlaying) (
-                        <span>
-                          <ion-icon name="play"></ion-icon>
-                        </span>
-                      );
-                      else if (this.state.isPlaying) (
-                        <span>
-                          <ion-icon name="pause"></ion-icon>
-                        </span>
-                      );
-                      else (
-                        index + 1
-                      );
+                      if (this.state.hover == song && this.state.hover != this.state.currentSong) {
+                        return (
+                          <span>
+                            <ion-icon name="play"></ion-icon>
+                          </span>
+                        )
+                      }
+                      else if (this.state.isPlaying && this.state.currentSong == song) {
+                        return(
+                          <span>
+                            <ion-icon name="pause"></ion-icon>
+                          </span>
+                        )
+                      }
+                      else {
+                        return (index + 1)
+                      };
                     }) ()}
                   </td>
                   <td>{song.title}</td>
