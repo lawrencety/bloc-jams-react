@@ -12,7 +12,9 @@ class Album extends Component {
     this.state = {
       album: album,
       currentSong: album.songs[0],
-      isPlaying: false
+      isPlaying: false,
+      playBtn: false,
+      pauseBtn: false,
     };
 
     this.audioElement = document.createElement('audio');
@@ -29,6 +31,14 @@ class Album extends Component {
     this.setState({isPlaying: false});
   }
 
+  playButton(song) {
+    this.setState({playBtn: true});
+  }
+
+  pauseButton(song) {
+    this.setState({pauseBtn: true});
+  }
+
   setSong(song) {
     this.audioElement.src = song.audioSrc;
     this.setState({currentSong: song});
@@ -38,10 +48,24 @@ class Album extends Component {
     const isSameSong = this.state.currentSong === song;
     if (isSameSong && this.state.isPlaying) {
       this.pause();
+      this.playButton(song);
     }
     else {
       if (!isSameSong) { this.setSong(song); }
       this.play()
+      this.pauseButton(song);
+    }
+  }
+
+  mouseOver(song) {
+    if (!this.state.isPlaying) {
+      this.playButton(song);
+    };
+  }
+
+  mouseOut(song) {
+    if (!this.state.isPlaying) {
+      this.setState({playBtn: false});
     }
   }
 
@@ -66,7 +90,23 @@ class Album extends Component {
             {
               this.state.album.songs.map( (song, index) =>
                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)}>
-                  <td>{index+1}</td>
+                  <td className="songNumber" onMouseEnter={() => this.mouseOver(song)} onMouseLeave={() => this.mouseOut(song)}>
+                    {(() => {
+                      if (this.state.playBtn) (
+                        <span>
+                          <ion-icon name="play"></ion-icon>
+                        </span>
+                      );
+                      else if (this.state.pauseBtn) (
+                        <span>
+                          <ion-icon name="pause"></ion-icon>
+                        </span>
+                      );
+                      else (!this.state.pauseBtn && !this.state.playBtn) (
+                        index + 1
+                      );
+                    }) ()}
+                  </td>
                   <td>{song.title}</td>
                   <td>{song.duration}</td>
                 </tr>
