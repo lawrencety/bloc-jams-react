@@ -17,17 +17,25 @@ class PlayerBar extends Component {
               }
             </span>
           </button>
-          <button id="next">
+          <button id="next" onClick={this.props.handleNextClick}>
             <ion-icon name="skip-forward"></ion-icon>
           </button>
         </section>
         <section id="time-control">
           <div className="current-time">
-            -:--
+            {this.props.currentTime}
           </div>
-          <input type="range" className="seek-bar" value="0" />
+          <input
+            type="range"
+            className="seek-bar"
+            value={(this.props.currentTime / this.props.duration) || 0}
+            max ="1"
+            min ="0"
+            step="0.01"
+            onChange={this.props.handleTimeChange}
+          />
           <div className="total-time">
-            -:--
+            {this.props.duration}
           </div>
         </section>
         <section id="volume-control">
