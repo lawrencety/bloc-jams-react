@@ -102,7 +102,7 @@ class Album extends Component {
   }
 
   formatTime(seconds) {
-    if ((seconds < 0) || isNaN(seconds)) {
+    if ((seconds < 0) || isNaN(seconds) || (typeof seconds != "number")) {
       return "-:--"
     } else {
       const mins = Math.floor(seconds / 60);
@@ -175,7 +175,7 @@ class Album extends Component {
                     }) ()}
                   </td>
                   <td>{song.title}</td>
-                  <td>{this.formatTime(song.duration)}</td>
+                  <td>{this.formatTime(Number(song.duration))}</td>
                 </tr>
               )
             }
