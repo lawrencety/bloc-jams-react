@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -29,4 +29,223 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.head {
+  height: 20vh;
+  background-color: #222222;
+}
+
+h1.page-title {
+  text-align: center;
+  font-size: 5rem;
+  color: #FFFFFF;
+  line-height: 10vh;
+  margin: auto;
+}
+
+nav {
+  text-align: right;
+  height: 50px;
+}
+
+.nav-link {
+  display: inline-block;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #FFFFFF;
+  padding: 10px;
+  margin: auto 20px;
+  transition: 500ms;
+}
+
+.nav-link:hover {
+  opacity: 0.5;
+}
+
+main {
+  margin: auto 10vw;
+  width: 80vw;
+}
+
+.hero-title {
+  text-align: center;
+  font-size: 2.4rem;
+}
+
+.point {
+  height: 15vh;
+  vertical-align: center;
+}
+
+.album-link {
+  display: block;
+  margin: 5px 0px;
+  padding: 0px;
+  transition: 250ms;
+  background-color: #DFDFDF;
+}
+
+.album-link:hover {
+  background-color: #EFEFEF;
+}
+
+.album-cover {
+  display:inline-block;
+  height: 30vh;
+  margin: 0px 20px 0px 0px;
+}
+
+.album-description {
+  display:inline-block;
+  position: absolute;
+}
+
+.album-text {
+  height:30vh;
+  color: #222222;
+}
+
+.album-title {
+  padding-top: 10%;
+  font-size: 2.4rem;
+}
+
+.album-artist {
+  font-size: 1.6rem;
+}
+
+.album-songs {
+  padding-top: 10%;
+}
+
+#album-info {
+  display: inline-block;
+}
+
+#album-cover-art {
+  height: 50vh;
+}
+
+#album-title {
+  font-size: 1rem;
+  margin: 3px;
+}
+
+.artist {
+  font-size: 1rem;
+  margin: 3px;
+}
+
+#release-info {
+  font-size: 1rem;
+  margin: 3px;
+}
+
+#song-list {
+  display: inline-block;
+  position: absolute;
+  padding: 0px 20px 0px 0px;
+}
+
+.song-number {
+  width: 25px;
+  text-align: center;
+}
+
+.song-title {
+  width: 40vw;
+}
+
+.song-duration {
+  width: 40px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  border: 1px solid #DFDFDF;
+}
+
+tr:hover {
+  background-color: #DFDFDF;
+}
+
+.player-bar {
+  background-color: #DFDFDF;
+  position: fixed;
+  bottom: 0;
+}
+
+#buttons {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#play-pause {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: #555555;
+  border-style: none;
+  color: #FFFFFF;
+  font-size: 1.4rem;
+}
+
+#pp-icon, #next, #previous {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#next, #previous {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #555555;
+  border-style: none;
+  color: #FFFFFF;
+  font-size: 1rem;
+  margin: 5px;
+}
+
+#time-control {
+  display: inline-block;
+  vertical-align: middle;
+  width: 53vw;
+  margin: 15px;
+}
+
+.current-time, .total-time, .volume {
+  display: inline-block;
+  margin: 0px 5px;
+}
+
+.seek-bar {
+  display: inline-block;
+  width: 80%;
+  color: black;
+}
+
+#volume-control {
+  display: inline-block;
+  vertical-align: middle;
+  width: 15vw;
+}
+
+.volume-bar {
+  display: inline-block;
+  width: 60%;
+  color: black;
+}
+
+.seek-bar, .volume-bar {
+  -webkit-appearance: none;
+  height: 15px;
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
 }

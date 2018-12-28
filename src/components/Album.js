@@ -152,7 +152,7 @@ class Album extends Component {
             {
               this.state.album.songs.map( (song, index) =>
                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseEnter={() => this.mouseOver(song)} onMouseLeave={() => this.mouseOut(song)}>
-                  <td className="songNumber" >
+                  <td className="song-number" >
                     {(() => {
                       if (this.state.isPlaying && (this.state.currentSong === song)) {
                         return(
@@ -171,8 +171,8 @@ class Album extends Component {
                       }
                     }) ()}
                   </td>
-                  <td>{song.title}</td>
-                  <td>{this.formatTime(Number(song.duration))}</td>
+                  <td className="song-title">{song.title}</td>
+                  <td className="song-duration">{this.formatTime(Number(song.duration))}</td>
                 </tr>
               )
             }

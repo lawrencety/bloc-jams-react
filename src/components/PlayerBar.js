@@ -9,7 +9,7 @@ class PlayerBar extends Component {
             <ion-icon name="skip-backward"></ion-icon>
           </button>
           <button id="play-pause" onClick={this.props.handleSongClick}>
-            <span>
+            <span id="pp-icon">
               {this.props.isPlaying ?
                 <ion-icon name="pause"></ion-icon>
                 :
@@ -42,7 +42,7 @@ class PlayerBar extends Component {
           <ion-icon name="volume-low"></ion-icon>
           <input
             type="range"
-            className="seek-bar"
+            className="volume-bar"
             value= {this.props.volume}
             max= "100"
             min= "0"

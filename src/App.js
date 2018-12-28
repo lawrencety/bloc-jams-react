@@ -9,12 +9,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
+        <header className="head">
           <nav>
-            <Link to='/'>Landing</Link>
-            <Link to='/library'>Library</Link>
+            <Link to='/' className="nav-link">Landing</Link>
+            <Link to='/library' className="nav-link">Library</Link>
           </nav>
-          <h1>Bloc Jams</h1>
+          <h1 className="page-title">My Jams</h1>
         </header>
         <main>
           <Route exact path  = "/" component = {Landing} />
