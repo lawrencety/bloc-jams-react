@@ -15,6 +15,7 @@ class Album extends Component {
       currentSong: album.songs[0],
       currentTime: 0,
       duration: album.songs[0].duration,
+      volume: 80,
       isPlaying: false,
       hover: false,
     };
@@ -100,6 +101,27 @@ class Album extends Component {
     this.setState({currentTime: newTime});
   }
 
+  formatTime(seconds) {
+    if ((seconds < 0) || isNaN(seconds) || (typeof seconds != "number")) {
+      return "-:--"
+    } else {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      if (secs < 10) {
+        return (mins + ":0" + secs);
+      } else {
+        return mins + ":" + secs;
+      }
+
+    };
+  }
+
+  handleVolumeChange(e) {
+    const newVol = e.target.value;
+    this.audioElement.volume = newVol/100;
+    this.setState({volume: newVol});
+  }
+
   mouseOver(song) {
       this.setState({hover: song});
   }
@@ -132,28 +154,25 @@ class Album extends Component {
                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseEnter={() => this.mouseOver(song)} onMouseLeave={() => this.mouseOut(song)}>
                   <td className="songNumber" >
                     {(() => {
-                      if ((this.state.hover === song)
-                      || (!this.state.isPlaying && (this.state.currentSong === song))) {
-                        return (
-                          <span>
-                            <ion-icon name="play"></ion-icon>
-                          </span>
-                        )
-                      }
-                      else if (this.state.isPlaying && (this.state.currentSong === song)) {
+                      if (this.state.isPlaying && (this.state.currentSong === song)) {
                         return(
                           <span>
                             <ion-icon name="pause"></ion-icon>
                           </span>
                         )
-                      }
-                      else {
+                      } else if (this.state.hover === song) {
+                        return (
+                          <span>
+                            <ion-icon name="play"></ion-icon>
+                          </span>
+                        )
+                      } else {
                         return (index + 1)
                       }
                     }) ()}
                   </td>
                   <td>{song.title}</td>
-                  <td>{song.duration}</td>
+                  <td>{this.formatTime(Number(song.duration))}</td>
                 </tr>
               )
             }
@@ -164,10 +183,13 @@ class Album extends Component {
           currentSong = {this.state.currentSong}
           currentTime = {this.state.currentTime}
           duration = {this.state.duration}
+          volume = {this.state.volume}
           handleSongClick={() => this.handleSongClick(this.state.currentSong)}
           handlePrevClick={() => this.handlePrevClick()}
           handleNextClick={() => this.handleNextClick()}
           handleTimeChange={(e) => this.handleTimeChange(e)}
+          handleVolumeChange={(e) => this.handleVolumeChange(e)}
+          formatTime={(e) => this.formatTime(e)}
         />
       </section>
     )
