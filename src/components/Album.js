@@ -154,22 +154,19 @@ class Album extends Component {
                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseEnter={() => this.mouseOver(song)} onMouseLeave={() => this.mouseOut(song)}>
                   <td className="songNumber" >
                     {(() => {
-                      if ((this.state.hover === song)
-                      || (!this.state.isPlaying && (this.state.currentSong === song))) {
-                        return (
-                          <span>
-                            <ion-icon name="play"></ion-icon>
-                          </span>
-                        )
-                      }
-                      else if (this.state.isPlaying && (this.state.currentSong === song)) {
+                      if (this.state.isPlaying && (this.state.currentSong === song)) {
                         return(
                           <span>
                             <ion-icon name="pause"></ion-icon>
                           </span>
                         )
-                      }
-                      else {
+                      } else if (this.state.hover === song) {
+                        return (
+                          <span>
+                            <ion-icon name="play"></ion-icon>
+                          </span>
+                        )
+                      } else {
                         return (index + 1)
                       }
                     }) ()}
